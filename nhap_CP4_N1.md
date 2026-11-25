@@ -19,10 +19,14 @@ Nhận xét cho luật an toàn: ngưỡng tuyệt đối 3% sẽ làm pilot d�
 
 ## Bước 4.5 · Ba luật dừng (NẾU – TRONG – THÌ – KHÔNG THÌ)
 
-1. **An toàn:** "NẾU tỉ lệ mở lại 7 ngày của nhóm trợ lý cao hơn nhóm đối chứng từ 2 điểm trở lên, hoặc vượt 6% trên phạm vi noi_dia + hang_nang (hiện 3,97%, simulated), hoặc có từ 1 ca hoàn trùng TRONG 3 ngày liên tiếp THÌ Giám đốc vận hành tắt trợ lý trong 30 phút và chuyển toàn bộ yêu cầu về nhân viên tự làm KHÔNG THÌ không được sang bước rollout tiếp theo"
-2. **Chi phí:** "NẾU chi phí mỗi việc thành công (đã cộng chi phí cố định) vượt 8.000 đ TRONG 2 tuần liên tiếp THÌ PM thu hẹp phạm vi về noi_dia và giới hạn tối đa 2 lần chạy KHÔNG THÌ không được mở rộng sang hang_nang"
-   - Căn cứ: mức hiện tại 5.784 đ/việc ở nửa khối lượng (A4, simulated). 8.000 đ là mức tăng khoảng 38%, tương đương kịch bản xem lại gấp đôi (+40,7%, B1). Vẫn dưới 12.000 đ (0,67×).
-3. **Mức độ sử dụng:** "NẾU tỉ lệ nhân viên sửa hoặc bỏ gợi ý vượt 40% TRONG 1 tuần THÌ Trưởng nhóm CSKH phỏng vấn 5 nhân viên trong 3 ngày và gửi PM danh sách lý do KHÔNG THÌ không được chuyển bước rollout"
+Cách đọc vế **KHÔNG THÌ** (theo đề): việc **bị cấm** chừng nào bước THÌ chưa làm xong. Không đọc là "nếu chỉ số bình thường thì…".
+
+1. **An toàn:** "NẾU tỉ lệ mở lại 7 ngày của nhóm trợ lý cao hơn nhóm đối chứng từ 2 điểm trở lên hoặc vượt 6% trên phạm vi noi_dia + hang_nang TRONG 3 ngày liên tiếp, hoặc có từ 1 ca hoàn trùng TRONG bất kỳ ngày nào, THÌ Giám đốc vận hành tắt trợ lý trong 30 phút và chuyển toàn bộ yêu cầu về nhân viên tự làm, KHÔNG THÌ không được bật lại trợ lý trước khi có báo cáo nguyên nhân và bản sửa đã kiểm"
+   - Căn cứ: mở lại hiện tại 3,97% trên phạm vi (simulated), nên trần 6% còn cách khoảng 2 điểm. Hoàn trùng là mất tiền trực tiếp (ca 20 ở CP3), nên 1 ca là dừng ngay, không chờ 3 ngày.
+2. **Chi phí:** "NẾU chi phí mỗi việc thành công **chưa cộng chi phí cố định** vượt 8.000 đ TRONG 2 tuần liên tiếp THÌ PM thu hẹp phạm vi về noi_dia và giới hạn tối đa 2 lần chạy, KHÔNG THÌ không được mở rộng tỉ lệ rollout"
+   - Vì sao chưa cộng cố định: ở bước rollout 10%, khối lượng nhỏ nên 40 triệu đ/tháng chia ra mỗi việc rất lớn. Ví dụ khoảng 4.500 yêu cầu/tháng thì cố định là 40.000.000 / (4.500 × 0,75) ≈ 11.852 đ/việc, luật sẽ kích ngay tuần đầu dù trợ lý không có vấn đề gì.
+   - Căn cứ ngưỡng: hiện 3.414 đ/việc (A4, simulated). Ở nửa khối lượng, 8.000 + 2.370 đ cố định = 10.370 đ, vẫn dưới 12.000 đ (0,86×).
+3. **Mức độ sử dụng:** "NẾU tỉ lệ ca được xem lại mà nhân viên sửa hoặc bỏ gợi ý vượt 40% TRONG 1 tuần THÌ Trưởng nhóm CSKH phỏng vấn 5 nhân viên trong 3 ngày và gửi PM danh sách lý do, KHÔNG THÌ không được chuyển bước rollout"
    - Căn cứ: hiện 27,1% (48/177 ca được xem lại, simulated). 40% là cao hơn hiện tại khoảng 13 điểm.
 
 ## Bước 4.4 · Năm câu D2 "tách được tác động"
