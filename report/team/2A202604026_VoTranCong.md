@@ -43,7 +43,7 @@
 
 - **Claude (Claude Code):** đọc đề và tài liệu hướng dẫn; đề xuất phân công; soạn nháp các bảng và hồ sơ từ số liệu trong repo; tính D1 và các tỉ lệ từ `logix_requests.csv`; dựng slide HTML và kịch bản debate; kiểm tra định dạng.
 - **Không dùng AI để gắn nhãn:** 20 nhãn CP3 do mình tự gắn và gửi; Claude chỉ ghi lại nguyên văn vào bảng, không đưa ý kiến vào.
-- **Cách tự kiểm tra:** chạy lại `python lab13.py` (ba phép thử ĐẠT); đối chiếu D1 với script tính riêng và với slide coach; kiểm tra `yaml.safe_load` và `grep` không còn dấu `?` hay từ "production"; so số của mình với commit của ba bạn trước khi đưa vào hồ sơ; sửa lại ngưỡng luật dừng khi phát hiện mâu thuẫn với slide coach.
+- **Cách tự kiểm tra:** chạy lại `python lab13.py` (ba phép thử ĐẠT); đối chiếu D1 với script tính riêng và với slide coach; kiểm tra `yaml.safe_load` và `grep` không còn dấu `?` hay từ bị cấm theo quy tắc nộp; so số của mình với commit của ba bạn trước khi đưa vào hồ sơ; sửa lại ngưỡng luật dừng khi phát hiện mâu thuẫn với slide coach.
 
 ## 6. Tự đánh giá
 
