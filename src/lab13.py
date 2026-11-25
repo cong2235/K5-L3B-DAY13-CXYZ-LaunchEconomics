@@ -141,6 +141,73 @@ def in_bang_do_nhay(runs, reqs, cps_goc, reqs_pham_vi):
               f"({ket_qua['cps'] / BASELINE:.2f}×), hòa vốn ở {phut_xem_lai_hoa_von:.1f} phút xem lại/ca (simulated)")
 
 
+# ---------- Nhiệm vụ D1 · Cỡ mẫu ----------
+P_GOC = 0.70     # chỉ số chính hiện tại (đề cho)
+MUC_TIEU = 0.05  # mức chênh muốn thấy: +5 điểm
+ALPHA = 0.05
+POWER = 0.80
+ICC = 0.02
+
+
+def co_mau(p1, p2, alpha=ALPHA, power=POWER):
+    """Cỡ mẫu mỗi nhóm khi so hai tỉ lệ (công thức trong docs/du_lieu_va_cong_thuc.md)."""
+    from statistics import NormalDist
+    z_a = NormalDist().inv_cdf(1 - alpha / 2)
+    z_b = NormalDist().inv_cdf(power)
+    p_tb = (p1 + p2) / 2
+    tu_so = (z_a * math.sqrt(2 * p_tb * (1 - p_tb))
+             + z_b * math.sqrt(p1 * (1 - p1) + p2 * (1 - p2))) ** 2
+    return math.ceil(tu_so / (p2 - p1) ** 2)
+
+
+def he_so_thiet_ke(m, icc=ICC):
+    """DE = 1 + (m − 1) × ICC, với m là số yêu cầu mỗi cụm."""
+    return 1 + (m - 1) * icc
+
+
+def co_mau_hieu_dung(c, m, icc=ICC):
+    """c cụm, mỗi cụm m yêu cầu: c × m ÷ DE, luôn nhỏ hơn c ÷ ICC."""
+    return c * m / he_so_thiet_ke(m, icc)
+
+
+def in_co_mau(reqs, reqs_pham_vi):
+    """In năm câu D1 và tỉ lệ mở lại hiện tại để đặt luật an toàn."""
+    print('\nD1 · Cỡ mẫu (baseline 0,70; +5 điểm; alpha 0,05; power 0,8; ICC 0,02)')
+    n = co_mau(P_GOC, P_GOC + MUC_TIEU)
+    print(f'a) Chia theo yêu cầu: {n:,} yêu cầu mỗi nhóm')
+
+    m = 75
+    de = he_so_thiet_ke(m)
+    n_cum = math.ceil(n * de)  # cỡ mẫu luôn làm tròn lên
+    nhan_vien = math.ceil(n_cum / m)
+    print(f'b) Theo nhân viên, m = {m}: DE = {de:.2f}, cần {n_cum:,.0f} yêu cầu mỗi nhóm '
+          f'= {nhan_vien} nhân viên mỗi nhóm, tổng {2 * nhan_vien} > 40: không đủ người')
+
+    tran_20 = 20 / ICC
+    print(f'c) 20 nhân viên mỗi nhóm: tối đa {tran_20:,.0f} < {n:,} → không đạt '
+          f'(với m = {m}: {co_mau_hieu_dung(20, m):,.0f})')
+
+    print(f'd) 6 depot mỗi nhóm: tối đa {6 / ICC:,.0f} < {n:,} → không đạt')
+
+    n6 = co_mau(P_GOC, P_GOC + 0.06)
+    # 20m / (1 + (m − 1) ICC) ≥ n6  →  m ≥ n6 (1 − ICC) / (20 − n6 ICC)
+    m_can = math.ceil(n6 * (1 - ICC) / (20 - n6 * ICC))
+    print(f'e) Mức chênh 6 điểm: {n6:,} mỗi nhóm; 20 nhân viên mỗi nhóm cần m ≥ {m_can} '
+          f'yêu cầu mỗi người (DE = {he_so_thiet_ke(m_can):.2f}, '
+          f'hiệu dụng {co_mau_hieu_dung(20, m_can):,.0f})')
+
+    from statsmodels.stats.power import NormalIndPower
+    from statsmodels.stats.proportion import proportion_effectsize
+    h = proportion_effectsize(P_GOC + MUC_TIEU, P_GOC)
+    power_that = NormalIndPower().power(effect_size=h, nobs1=n6, alpha=ALPHA, ratio=1)
+    print(f'   Đánh đổi: nếu tác động thật chỉ +5 điểm, power với n = {n6} chỉ còn {power_that:.2f}')
+
+    print('\nD3 · Tỉ lệ mo_lai_trong_7_ngay hiện tại')
+    for ten, bang in (('Toàn mẫu', reqs), ('noi_dia + hang_nang', reqs_pham_vi)):
+        so_ca = bang['mo_lai_trong_7_ngay'].sum()
+        print(f'{ten}: {bang["mo_lai_trong_7_ngay"].mean():.2%} ({so_ca}/{len(bang)})')
+
+
 if __name__ == '__main__':
     # Giữ dấu tiếng Việt khi stdout dùng bảng mã cũ của Windows.
     if sys.stdout.encoding != 'utf-8':
@@ -185,6 +252,4 @@ if __name__ == '__main__':
               f'{cps_gom_co_dinh:,.0f} | {cps_gom_co_dinh / BASELINE:.2f}×')
 
     in_bang_do_nhay(runs, reqs, ket_qua['cps'], reqs_pham_vi)
-    # TODO CP4 · Nhiệm vụ D: cỡ mẫu.
-    #   from statsmodels.stats.proportion import proportion_effectsize
-    #   from statsmodels.stats.power import NormalIndPower
+    in_co_mau(reqs, reqs_pham_vi)
