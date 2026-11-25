@@ -47,8 +47,8 @@ Cách phát hiện phải đo được (event, ngưỡng, tần suất). Ngườ
 
 | Ca | Loại lỗi | Phát hiện bằng gì | Khắc phục thế nào | Ai phụ trách |
 | --: | --- | --- | --- | --- |
-| ... | Do người dùng | ... | ... | ... |
-| ... | Hệ thống | ... | ... | ... |
-| ... | Ngữ cảnh | ... | ... | ... |
-| ... | Giới hạn hệ thống | ... | ... | ... |
-| ... | Ngầm | ... | ... | ... |
+| 14 | Do người dùng | Event `ticket_reopened` có `reason = xac_nhan_nham` trong 7 ngày sau `ticket_closed`; cảnh báo khi vượt 1% số ticket đóng, kiểm tra hằng tuần | Thêm bước xác nhận lần hai ("Bạn đã nhận tiền vào tài khoản chưa?") và cho hoàn tác trong 24 giờ trước khi đóng; chỉ đóng khi `refund_ledger_write` trả `ok` | PM trợ lý hoàn phí |
+| 20 | Hệ thống | Đối soát mỗi giờ: số `request_id` có nhiều hơn 1 bản ghi `refund_ledger_write` với `ket_qua = ok`; ngưỡng 0 ca | Khoá chống trùng `idempotency_key` theo `request_id`; yêu cầu gửi lại trong 10 phút thì trả "đang xử lý", không tạo lệnh hoàn mới | Kỹ sư trưởng agent |
+| 16 | Ngữ cảnh | Event `notification_sent` có `sent_at` từ 22:00 đến 07:00, đối chiếu với `ticket_reopened` có `reason = lam_phien`; cảnh báo khi thông báo ngoài giờ vượt 2% số thông báo trong tuần, kiểm tra hằng tuần | Đặt giờ yên lặng 22:00–07:00: xếp hàng và gửi lúc 07:00; vẫn hiện trạng thái hoàn trong ứng dụng ngay khi xong | Trưởng nhóm CSKH |
+| 19 | Giới hạn hệ thống | Event `handoff_to_staff` có `reason = ngoai_pham_vi_du_lieu`, theo loại yêu cầu; cảnh báo khi vượt 3% số yêu cầu trong tuần hoặc bất kỳ ca chuyển nào thiếu `tom_tat`, kiểm tra hằng tuần | Giữ cách chuyển kèm tóm tắt; ghi giới hạn 12 tháng ngay trên ứng dụng để khách biết trước; nếu vượt 3% thì cân nhắc mở rộng phạm vi dữ liệu | PM trợ lý hoàn phí |
+| 12 | Ngầm | Event `agent_run_completed`: số lần gọi tool và token trung bình mỗi yêu cầu theo depot; cảnh báo khi một depot vượt 1,5 lần trung bình toàn hệ thống trong 3 ngày liên tiếp, kiểm tra hằng ngày | Kiểm tra schema dữ liệu tool trả về và ghi `tool_schema_error` khi thiếu trường; sửa tool tra đơn của depot D05; đặt trần số lần gọi tool mỗi yêu cầu | Kỹ sư trưởng agent |
