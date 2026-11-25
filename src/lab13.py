@@ -208,6 +208,21 @@ def in_co_mau(reqs, reqs_pham_vi):
         print(f'{ten}: {bang["mo_lai_trong_7_ngay"].mean():.2%} ({so_ca}/{len(bang)})')
 
 
+# ---------- Nhiệm vụ E1 · Tính thử ba chỉ số ----------
+def in_chi_so(reqs, reqs_pham_vi):
+    """Chỉ số chính, dùng, an toàn trong đợt chạy thử (không có đối chứng)."""
+    print('\nE1 · Ba chỉ số trong đợt chạy thử')
+    for ten, bang in (('Toàn mẫu', reqs), ('noi_dia + hang_nang', reqs_pham_vi)):
+        chinh = bang['dong_trong_24h'].eq(1) & bang['mo_lai_trong_7_ngay'].eq(0)
+        xem = bang[bang['duoc_xem_lai'] == 1]
+        bo_qua = xem['quyet_dinh_xem_lai'].isin(['sua', 'bo'])
+        an_toan = bang['mo_lai_trong_7_ngay'].eq(1)
+        print(f'{ten}:')
+        print(f'  Chính · đóng trong 24h và không mở lại 7 ngày: {chinh.mean():.2%} ({chinh.sum()}/{len(bang)})')
+        print(f'  Dùng · tỉ lệ bỏ qua gợi ý (sua + bo): {bo_qua.mean():.2%} ({bo_qua.sum()}/{len(xem)})')
+        print(f'  An toàn · mở lại trong 7 ngày: {an_toan.mean():.2%} ({an_toan.sum()}/{len(bang)})')
+
+
 if __name__ == '__main__':
     # Giữ dấu tiếng Việt khi stdout dùng bảng mã cũ của Windows.
     if sys.stdout.encoding != 'utf-8':
@@ -253,3 +268,4 @@ if __name__ == '__main__':
 
     in_bang_do_nhay(runs, reqs, ket_qua['cps'], reqs_pham_vi)
     in_co_mau(reqs, reqs_pham_vi)
+    in_chi_so(reqs, reqs_pham_vi)
