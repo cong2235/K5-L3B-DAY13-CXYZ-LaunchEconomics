@@ -25,7 +25,9 @@ Số tính bằng `src/lab13.py`. Mọi con số tính từ cột `_simulated` g
 | Hoá đơn token và tool chia cho số yêu cầu | 274,65 đ/yêu cầu | Token + tool chia cho 1.200 | đo từ trace |
 
 - Chi phí mỗi việc thành công gấp **16,3 lần** hoá đơn token và tool trên mỗi yêu cầu (`simulated`).
-- Làm lại chiếm tỉ trọng lớn nhất, **51,8%** tổng chi phí (`simulated`).
+- Làm lại chiếm tỉ trọng lớn nhất, **51,8%** tổng chi phí, tiếp theo là xem lại **40,7%** (1.780.000 / 4.373.585); giờ nhân viên chiếm **92,5%** tổng chi phí (`simulated`).
+- Vì sao tử số tính mọi lần chạy còn mẫu số chỉ đếm `thanh_cong`: lần chạy lỗi vẫn tốn token và tool (93.804 đ là của lần chạy 2 và 3), còn công ty chỉ nhận giá trị từ **978** việc thành công, nên chia cho 1.200 sẽ làm chi phí trông rẻ hơn thật.
+- Khi so với 12.000 đ: 4.472 đ chưa tính 222 yêu cầu không thành công mà nhân viên phải làm. Chi phí cả hệ thống = (4.373.585 + 222 × 12.000) / 1.200 = **5.865 đ/yêu cầu = 0,49×** (`simulated`, tính tay).
 
 ## A3 · Tách theo loại yêu cầu
 
@@ -37,6 +39,7 @@ Số tính bằng `src/lab13.py`. Mọi con số tính từ cột `_simulated` g
 | doi_tac | 68 | 54,4% | 1,88 | 10.215 đ | 0,85× |
 
 - `quoc_te` đạt **27,3%** thành công và tốn **1,88×** mốc 12.000 đ (`simulated`). Chạy lại cho ít kết quả, với tỉ lệ `ok` giảm từ **30,0%** ở lần 1 xuống **11,4%** ở lần 2 và **2,2%** ở lần 3.
+- Kết luận phạm vi: loại `quoc_te` (1,88×, lỗi lặp lại trên cùng yêu cầu nên chạy lại chỉ tốn thêm tiền); `doi_tac` sát ngưỡng (**0,85×**, thành công 54,4%) và có điều khoản riêng nên cũng loại. Phạm vi pilot: `noi_dia` + `hang_nang` (`simulated`).
 
 ## A4 · Chi phí cố định (phạm vi noi_dia + hang_nang)
 
@@ -46,6 +49,7 @@ Số tính bằng `src/lab13.py`. Mọi con số tính từ cột `_simulated` g
 | Một nửa khối lượng (22.500 yêu cầu/tháng) | 16.875 | 2.370 đ | 5.784 đ | 0,48× |
 
 - Chi phí mỗi việc thành công vẫn dưới **12.000 đ** ở cả hai mức. Khi khối lượng giảm từ **45.000** còn **22.500** yêu cầu/tháng, chi phí tăng từ **4.599 đ** lên **5.784 đ/việc** (`simulated`).
+- Trước khi cộng cố định, chi phí mỗi việc thành công trong phạm vi là 3.072.513 / 900 = **3.414 đ**. Khi đưa số vào hồ sơ phải ghi rõ đã cộng cố định chưa và ở khối lượng nào (`simulated`).
 
 ## B1 · Đổi từng yếu tố
 
