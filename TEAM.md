@@ -2,8 +2,8 @@
 
 ## Thông tin nhóm
 
-- Tên nhóm:
-- Lớp: L3A hoặc L3B
+- Tên nhóm: CXYZ
+- Lớp: L3B
 - Repo nhóm: `K5-L3A-DAY13-TenNhom-LaunchEconomics` (xem [SUBMISSION.md](SUBMISSION.md))
 - URL repo, nhánh nộp, commit chốt:
 
@@ -11,10 +11,10 @@
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 |        |      |       |        |         |
-|   2 |        |      |       |        |         |
-|   3 |        |      |       |        |         |
-|   4 |        |      |       |        |         |
+|   1 | Võ Trần Công | 2A202604026 |       |        | Người gắn nhãn 2, kiêm giữ hồ sơ (trưởng nhóm) |
+|   2 | Trịnh Minh Đức | 2A202604078 |       |        | Người kiểm số |
+|   3 | Trương Anh Đức | 2A202604096 |       |        | Người gắn nhãn 1 |
+|   4 | Nguyễn Cao Minh | 2A202604099 |       |        | Người viết code |
 
 Bốn vai của lab:
 
